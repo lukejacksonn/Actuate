@@ -68,7 +68,7 @@ $(this).actuate('fadeOut', function(x) {
 <br>
 #### Nested Animations
 
-You can call actuate again on the reference element explained in the above example. This allows you to create animation sequences (I am working on chaining).
+You can call actuate again on the reference element explained in the above example. This allows you to create animation sequences. Useful for animate in-out cases.
 
 ```javascript
 $(this).actuate('tada', function(x) { 
@@ -78,7 +78,7 @@ $(this).actuate('tada', function(x) {
 }, 1000);
 ```
 <br>
-#### Animated Append
+#### Append Animation
 
 You can call actuate on elements that have not yet been added to the DOM. The actuated animation will start once the element is rendered in the view.
 
@@ -89,6 +89,14 @@ $('<h1>Superman</h1>').actuate('lightSpeedIn', function(x) {
   });
 }, 1000).appendTo('body');
 ```
+<br>
+## TODO
+
+* Add options to control `animation-duration` and `animation-iteration-count`
+* Create demos for common use cases and write more animations
+* Make chaining animations easier and not so nesty
+* Write a vanilla javascript version to offer a non-dependant alternative
+
 <br>
 ## Licence
 
