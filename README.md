@@ -1,6 +1,6 @@
 # Actuate.js
 
-A jQuery wrapper for [animate.css](https://github.com/daneden/animate.css) that makes it *one line easy* to start using css animations. The plugin includes a bunch of swaggy animations but can be used to initialise any animation you like. 
+A jQuery wrapper for [animate.css](https://github.com/daneden/animate.css) that makes it *one line easy* to start using css animations. The plugin includes a bunch of swaggy animations but can be used to initialise any animation you like.
 
 ####Packaged cross-browser animations :
 
@@ -9,16 +9,30 @@ A jQuery wrapper for [animate.css](https://github.com/daneden/animate.css) that 
 
 <br>
 ## Usage
-
-1) Include the script tag in your documents `<head>`
+### Use Actuate with Animate.css
+1) Include the script tag in your document's `<head>`, along with the latest version of jQuery.
 ```html
 <head>
-  <script src="actuate.js"></script>
+  <script src="jQuery.js"></script>
+  <script src="actuate-animate.min.js"></script>
 </head>
 ```
 2) Use one of the packaged animations
 ```javascript
 $('div').actuate('bounce');
+```
+
+### Use Actuate with your own custom animations
+1) Include the script tag in your document's `<head>`, along with the latest version of jQuery.
+```html
+<head>
+  <script src="jQuery.js"></script>
+  <script src="actuate.min.js"></script>
+</head>
+```
+2) Enter any of your custom class names
+```javascript
+$('div').actuate('your-class-name')
 ```
 
 <br>
@@ -41,18 +55,18 @@ Below are example implementations that have been found useful and should get you
 The script below starts the animation `bounce` on a `h1` element and `log` a message `onAnimationEnd`.
 
 ```javascript
-$('h1').actuate('bounce', function() { 
+$('h1').actuate('bounce', function() {
   console.log('Finished animating!')
 });
 ```
 **Delay:** sometimes you might not want to execute the callback immediately. The script below actuates the same animation as above but waits `3000` milliseconds before executing the callback.
 
 ```javascript
-$('h1').actuate('bounce', function() { 
+$('h1').actuate('bounce', function() {
   console.log('Finished animating 3 seconds ago!')
 }, 3000);
 ```
-**NOTE:** If an element is waiting for a callback then it is still considered *animated*. Any further attempts to actuate the element will be ignored until the callback is executed. 
+**NOTE:** If an element is waiting for a callback then it is still considered *animated*. Any further attempts to actuate the element will be ignored until the callback is executed.
 
 <br>
 #### Callback Reference
@@ -60,7 +74,7 @@ $('h1').actuate('bounce', function() {
 The callback function gets passed a parameter `$elem` which is a reference to the element that was actuated. This reference can be used inside the callback function to further manipulate the element.
 
 ```javascript
-$(this).actuate('fadeOut', function(x) { 
+$(this).actuate('fadeOut', function(x) {
   console.log('Finished animating', x);
   x.remove();
 });
@@ -71,7 +85,7 @@ $(this).actuate('fadeOut', function(x) {
 You can call actuate again on the reference element explained in the above example. This allows you to create animation sequences. Useful for animate in-out cases.
 
 ```javascript
-$(this).actuate('tada', function(x) { 
+$(this).actuate('tada', function(x) {
   x.actuate('fadeOut', function() {
     x.remove();
   });
