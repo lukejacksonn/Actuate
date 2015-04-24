@@ -22,7 +22,7 @@ A jQuery wrapper for [animate.css](https://github.com/daneden/animate.css) that 
 $('div').actuate('bounce');
 ```
 
-### Use Actuate with your own custom animations
+### Use Actuate with custom animations
 1) Include the script tag in your document's `<head>`, along with the latest version of jQuery.
 ```html
 <head>
