@@ -1,4 +1,4 @@
-var actuate = function (animation, elements, callback) {
+var Actuate = function (elems, animation, callback) {
 
   var elem;
   var regex = new RegExp(' animated ' + animation, 'g');
@@ -19,9 +19,9 @@ var actuate = function (animation, elements, callback) {
     }
   }
 
-  for (var i = 0; i < elements.length; i++) {
+  for (var i = 0; i < elems.length; i++) {
     // This unanimated Item
-    elem = elements[i];
+    elem = elems[i];
     if(!elem.className.match(/animated/g)) {
       // Append animation Class
       // Add animationEnd Listeners
