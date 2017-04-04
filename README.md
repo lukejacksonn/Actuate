@@ -6,6 +6,8 @@ A shiny new (~600b) vanilla implementation of what was previously [A tiny jQuery
 
 Check out the [codepen examples](http://codepen.io/lukejacksonn/pen/dvaPPG).
 
+![Actuate Banner](https://cloud.githubusercontent.com/assets/1457604/24648564/34adf08c-194e-11e7-9c12-dd97d85363b8.gif)
+
 ## Getting Started
 
 > Note: this library uses [promises](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise) for which you [might need](http://caniuse.com/#feat=promises) a [polyfill](https://polyfill.io/v2/docs/)
@@ -34,7 +36,7 @@ You can define your own or employ a library like [animate.css](https://github.co
 ```
 
 ### Run with javascript
-In a script tag before the closing body tag
+In a script tag before the closing `body` tag
 ```js
 Actuate('pulse')(document.body)
 .then($ => console.log('Finished animating', $))
