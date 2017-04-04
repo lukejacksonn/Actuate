@@ -13,15 +13,14 @@
       'MSAnimationEnd',
     ]
 
-    const done = () => {
+    const done = _ => {
       $.classList.remove('animated', commands[0])
       event.forEach(e => $.removeEventListener(e, done))
       commands.shift()
-      commands.length > 0 ?
-        animate() : resolve($)
+      commands.length ? animate() : resolve($)
     }
 
-    const animate = () => {
+    const animate = _ => {
       event.forEach(e => $.addEventListener(e, done))
       $.classList.add('animated', commands[0])
     }
