@@ -11,16 +11,16 @@ Check out the [codepen examples](http://codepen.io/lukejacksonn/pen/dvaPPG).
 > Note: this library uses [promises](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise) for which you [might need](http://caniuse.com/#feat=promises) a [polyfill](https://polyfill.io/v2/docs/)
 
 ### Include the library
-Directly in the head of your document from the CDN
+Directly in the `head` of your document from the CDN
 ```html
 <script src='https://unpkg.com/actuatejs'></script>
 ```
-or require in your script after an `npm install actuatejs`
+or require it in your source files after `npm install actuatejs`
 ```js
 import Actuate from 'actuatejs' // ES6
 ```
 
-### Define a named CSS animation
+### Define a CSS animation
 You can define your own or employ a library like [animate.css](https://github.com/daneden/animate.css)
 ```css
 @keyframes pulse {
@@ -33,7 +33,7 @@ You can define your own or employ a library like [animate.css](https://github.co
 }
 ```
 
-### Actuate it using javascript
+### Run with javascript
 In a script tag before the closing body tag
 ```js
 Actuate('pulse')(document.body)
@@ -45,21 +45,19 @@ Actuate('pulse')(document.body)
 
 The API is intended to be as simple as possible providing low overhead syntax for animation sequencing, chaining of sequences and `animationEnd` detection.
 
-Here are some examples use cases:
-
 ### Single Animation
 
-To animate an HTML element, first pass the `actuate` function the name of the CSS `animation` you would like to apply. This primes the animation ready to be bound to a `target` element which is passed as the second argument like so:
+To animate an HTML element, first pass the `actuate` function the name of the CSS `animation` you would like to apply. This primes the animation ready to be bound to a `target` element passed as the second argument:
 
 ```js
 Actuate('tada')(document.body)
 ```
 
-Once the function has received both arguments. The animation will start.
+Once the function has received both arguments, the animation will be applied.
 
 ### Sequential Animations
 
-Often it is desirable to run animations one after another. Normally this is quite awkward to achieve and requires you observe the first animation until it is finished, then remove the animation class and add the next. Actuate handles this complexity for you. Just pass a space delimited list of named CSS animations like so:
+Often it is desirable to run animations one after another. There is no native method that assists this behavior. The Actuate function accepts a space delimited list of named CSS animations as the first argument and handles this complexity for you:
 
 ```js
 Actuate('rollIn tada rollOut')(document.body)
@@ -71,20 +69,22 @@ You can also pass in an array of named animations if you prefer:
 Actuate(['rollIn', 'tada', 'rollOut'])(document.body)
 ```
 
+When one animation finishes the next one will start until there are no more to apply.
+
 ### Animation End
 
-The actuate function returns a promise which means you can easily declare a `then` action which is guaranteed to execute once all the animations in a sequence have been applied.
+The actuate function returns a promise which means you can easily declare a `then` function which is guaranteed to execute once all the animations in a sequence have been applied.
 
 ```js
 Actuate('tada fadeOut')(document.body)
 .then($ => console.log('Finished Animating', $))
 ```
 
-The `then` function gets passed the initial `target` element. In the above case `$ === document.body`.
+The `then` function gets passed the `target` element. In the above case `$ === document.body`.
 
 ### Already Animating
 
-The only time the actuate with throw an _error_ is if you try animate an element that is already animating. To detect this use a `catch` statement.
+The only time the actuate with throw an _error_ is if you try animate an element that is already animating:
 
 ```js
 addEventListener('click', () =>
@@ -96,7 +96,7 @@ addEventListener('click', () =>
 
 ### Chaining sequences
 
-The actuate function takes advantage of [partial appliction](https://en.wikipedia.org/wiki/Partial_application) which means that animation sequences can be defined without having to specify a `target` element straight away.
+The actuate function takes advantage of [partial appliction](https://en.wikipedia.org/wiki/Partial_application) which means that animation sequences can be defined without having to immediately specify a `target` element.
 
 ```js
 var intro = Actuate('rollIn')
@@ -104,7 +104,7 @@ var showoff = Actuate('bounce tada bounce')
 var outro = Actuate('rollOut')
 ```
 
-You can then provide a `target` element and let it flow through a chain of predefined animation sequences using the `then` style syntax:
+You can then provide a `target` element and let it flow through a chain of predefined animation sequences:
 
 ```js
 Promise.resolve(document.body)
