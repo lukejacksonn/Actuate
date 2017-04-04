@@ -1,6 +1,6 @@
 {
   "name": "actuatejs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "One line easy actuation of CSS animation sequences.",
   "main": "index.min.js",
   "repository": {
