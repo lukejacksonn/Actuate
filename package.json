@@ -1,0 +1,17 @@
+{
+  "name": "actuatejs",
+  "version": "1.0.0",
+  "description": "One line easy actuation of CSS animation sequences.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukejacksonn/Actuate.git"
+  },
+  "keywords": ["css", "animate", "animation", "sequencing", "promise"],
+  "author": "Luke Jackson <lukejacksonn@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lukejacksonn/Actuate/issues"
+  },
+  "homepage": "https://github.com/lukejacksonn/Actuate#readme"
+}
