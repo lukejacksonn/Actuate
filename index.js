@@ -1,27 +1,31 @@
 (function() {
 
+  const types = {
+    'animation':'animationend',
+    'MSAnimation':'MSAnimationEnd',
+    'WebkitAnimation':'webkitAnimationEnd',
+  }
+
+  const event = types[
+    Object.keys(types).filter(x =>
+      document.body.style.hasOwnProperty(x)
+    )[0]
+  ]
+
   const Actuate = animations => $ => new Promise ((resolve, reject) => {
 
     const commands = Array.isArray(animations) ?
       animations : animations.split(' ')
 
-    const event = [
-      'animationsend',
-      'webkitAnimationEnd',
-      'oAnimationEnd',
-      'mozAnimationEnd',
-      'MSAnimationEnd',
-    ]
-
     const done = _ => {
       $.classList.remove('animated', commands[0])
-      event.forEach(e => $.removeEventListener(e, done))
+      $.removeEventListener(event, done)
       commands.shift()
       commands.length ? animate() : resolve($)
     }
 
     const animate = _ => {
-      event.forEach(e => $.addEventListener(e, done))
+      $.addEventListener(event, done)
       $.classList.add('animated', commands[0])
     }
 
