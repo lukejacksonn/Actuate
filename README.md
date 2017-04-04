@@ -1,117 +1,115 @@
-# Actuate.js
+# Actuate
 
-A jQuery wrapper for [animate.css](https://github.com/daneden/animate.css) that makes it *one line easy* to start using css animations. The plugin includes a bunch of swaggy animations but can be used to initialise any animation you like.
+> ac·tu·ate /ˈak(t)SHəˌwāt/ : cause (a machine or device) to operate.
 
-####Packaged cross-browser animations :
+A shiny new (~600b) vanilla implementation of what was previously [A tiny jQuery wrapper for animate.css](https://github.com/lukejacksonn/jquery-actuate) which allows for _one line easy_ actuation of CSS animation sequences with _thenable_ chaining.
 
+Check out the [codepen examples](http://codepen.io/lukejacksonn/pen/dvaPPG).
 
-`bounce`, `flash`, `pulse`, `rubberBand`, `shake`, `swing`, `tada`, `wobble`, `bounceIn`, `bounceInDown`, `bounceInLeft`, `bounceInRight`, `bounceInUp`, `bounceOut`, `bounceOutDown`, `bounceOutLeft`, `bounceOutRight`, `bounceOutUp`, `fadeIn`, `fadeInDown`, `fadeInDownBig`, `fadeInLeft`, `fadeInLeftBig`, `fadeInRight`, `fadeInRightBig`, `fadeInUp`, `fadeInUpBig`, `fadeOut`, `fadeOutDown`, `fadeOutDownBig`, `fadeOutLeft`, `fadeOutLeftBig`, `fadeOutRight`, `fadeOutRightBig`, `fadeOutUp`, `fadeOutUpBig`, `flipInX`, `flipInY`, `flipOutX`, `flipOutY`, `lightSpeedIn`, `lightSpeedOut`, `rotateIn`, `rotateInDownLeft`, `rotateInDownRight`, `rotateInUpLeft`, `rotateInUpRight`, `rotateOut`, `rotateOutDownLeft`, `rotateOutDownRight`, `rotateOutUpLeft`, `rotateOutUpRight`, `hinge`, `rollIn`, `rollOut`, `zoomIn`, `zoomInDown`, `zoomInLeft`, `zoomInRight`, `zoomInUp`, `zoomOut`, `zoomOutDown`, `zoomOutLeft`, `zoomOutRight`, `zoomOutUp`, `slideInDown`, `slideInLeft`, `slideInRight`, `slideInUp`, `slideOutDown`, `slideOutLeft`, `slideOutRight`, `slideOutUp`
+## Getting Started
 
-<br>
+> Note: this library uses [promises](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise) for which you [might need](http://caniuse.com/#feat=promises) a [polyfill](https://polyfill.io/v2/docs/)
+
+### Include the library
+Directly in the head of your document from the CDN
+```
+<script src='https://unpkg.com/actuatejs'></script>
+```
+or require in your script after an `npm install actuatejs`
+```
+import Actuate from 'actuatejs' // ES6
+var Actuate = require('actuatejs') // CommonJS
+```
+
+### Define a named CSS animation
+You can import a tonne of them from [animate.css](https://github.com/daneden/animate.css)
+```css
+@keyframes pulse {
+  from { transform: scale(1) }
+  50% { transform: scale(1.05) }
+  to { transform: scale(1) }
+}
+.pulse {
+  animation-name: pulse;
+}
+```
+
+### Actuate it using javascript
+In a script tag before the closing body tag
+```js
+Actuate('pulse')(document.body)
+.then(elem => console.log('Finished Animating', elem))
+.catch(elem => console.log(elem, 'was already animating'))
+```
+
 ## Usage
-### Use Actuate with Animate.css
-1) Include the script tag in your document's `<head>`, along with the latest version of jQuery.
-```html
-<head>
-  <script src="jQuery.js"></script>
-  <script src="actuate-animate.min.js"></script>
-</head>
-```
-2) Use one of the packaged animations
-```javascript
-$('div').actuate('bounce');
-```
 
-### Use Actuate with custom animations
-1) Include the script tag in your document's `<head>`, along with the latest version of jQuery.
-```html
-<head>
-  <script src="jQuery.js"></script>
-  <script src="actuate.min.js"></script>
-</head>
+The API is intended to be as simple as possible providing low overhead syntax for animation chaining and `animationEnd` detection.
+
+Here are some examples use cases and the syntax to go with them:
+
+### Single Animation
+
+To animate an HTML element first, pass the `actuate` function the name of the CSS `animation` you would like to apply. This primes the animation ready to be bound to a `target` element which is passed as the second argument like so:
+
 ```
-2) Enter any of your custom class names
-```javascript
-$('div').actuate('your-class-name')
+Actuate('tada')(document.body)
 ```
 
-<br>
-## Definition
+Once the function has received both arguments. The animation will begin to take effect.
 
-The `actuate` function accepts three parameters; `animation`, `callback` and `delay`. If defined, the callback function is executed *delay* milliseconds after `onAnimationEnd`. If a delay is not defined then the callback is executed *immediately* `onAnimationEnd`. Calling actuate on an element that is already animated will have no effect.
+### Sequential Animations
 
-```javascript
-$(selector).actuate(animation, callback, delay);
+Often it is desirable to run animations one after another. Normally this is quite tricky to achieve and would require monitoring when the the first animation is finished, removing the animation class and adding the next. Actuate handles this complexity for you. Just pass a space delimited list of named CSS animations like so:
+
+```
+Actuate('rollIn tada rollOut')(document.body)
 ```
 
-<br>
-## Examples
+You can also pass in an array of named animations if you prefer:
 
-Below are example implementations that have been found useful and should get you started with whatever you are trying to do. If you would like to see more examples or more functionality then raise an issue or even better create a pull request with something new.
-
-<br>
-#### Basic Callbacks
-
-The script below starts the animation `bounce` on a `h1` element and `log` a message `onAnimationEnd`.
-
-```javascript
-$('h1').actuate('bounce', function() {
-  console.log('Finished animating!')
-});
 ```
-**Delay:** sometimes you might not want to execute the callback immediately. The script below actuates the same animation as above but waits `3000` milliseconds before executing the callback.
-
-```javascript
-$('h1').actuate('bounce', function() {
-  console.log('Finished animating 3 seconds ago!')
-}, 3000);
+Actuate(['rollIn', 'tada', 'rollOut'])(document.body)
 ```
-**NOTE:** If an element is waiting for a callback then it is still considered *animated*. Any further attempts to actuate the element will be ignored until the callback is executed.
 
-<br>
-#### Callback Reference
+### Animation End
 
-The callback function gets passed a parameter `$elem` which is a reference to the element that was actuated. This reference can be used inside the callback function to further manipulate the element.
+The actuate function returns a promise which means you can easily declare a `then` action which guarantees to execute once all animations in a sequence have been applied.
 
-```javascript
-$(this).actuate('fadeOut', function(x) {
-  console.log('Finished animating', x);
-  x.remove();
-});
 ```
-<br>
-#### Nested Animations
-
-You can call actuate again on the reference element explained in the above example. This allows you to create animation sequences. Useful for animate in-out cases.
-
-```javascript
-$(this).actuate('tada', function(x) {
-  x.actuate('fadeOut', function() {
-    x.remove();
-  });
-}, 1000);
+Actuate('tada fadeOut')(document.body)
+.then($ => console.log('Finished Animating', $))
 ```
-<br>
-#### Append Animation
 
-You can call actuate on elements that have not yet been added to the DOM. The actuated animation will start once the element is rendered in the view.
+The `then` function gets passed the initial `target` element. In the above case `$ === document.body`.
 
-```javascript
-$('<h1>Superman</h1>').actuate('lightSpeedIn', function(x) {
-  x.actuate('lightSpeedOut', function() {
-    x.remove();
-  });
-}, 1000).appendTo('body');
+### Already Animating
+
+The only time the actuate with throw an _error_ is if you try animate an element that is already animating. To detect this use a `catch` statement.
+
 ```
-<br>
-## TODO
+addEventListener('click', () =>
+  Actuate('tada')(document.body)
+  .then($ => console.log('Finished'))
+  .catch($ => console.log('Already Animating'))
+)
+```
 
-* Add options to control `animation-duration` and `animation-iteration-count`
-* Create demos for common use cases and write more animations
-* Make chaining animations easier and not so nesty
-* Write a vanilla javascript version to offer a non-dependant alternative
+### Chaining sequences
 
-<br>
-## Licence
+The actuate function takes advantage of [partial appliction](https://en.wikipedia.org/wiki/Partial_application) which means that animation sequences can be defined without having to specify a `target` element straight away.
 
-Actuate.js is licensed under the [MIT license](http://opensource.org/licenses/MIT).
+```
+var intro = Actuate('rollIn')
+var showoff = Actuate('bounce tada bounce')
+var outro = Actuate('rollOut')
+```
+
+You can then provide a `target` element and let it flow through a chain of predefined animation sequences using the `then` style syntax:
+
+```
+Promise.resolve(document.body)
+.then(intro)
+.then(showoff)
+.then(outro)
+```
