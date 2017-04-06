@@ -49,13 +49,19 @@ The API is intended to be as simple as possible providing low overhead syntax fo
 
 ### Single Animation
 
-To animate an HTML element, first pass the `actuate` function the name of the CSS `animation` you would like to apply. This primes the animation ready to be bound to a `target` element passed as the second argument:
+To animate an HTML element, first pass the `Actuate` function the name of the CSS `animation` you would like to apply. This primes the animation ready to be bound to a `target` element (in this case `document.body`) which is passed as the second argument:
 
 ```js
 Actuate('tada')(document.body)
 ```
 
-Once the function has received both arguments, the animation will be applied.
+Once the function has received both arguments, the animation will initiate. You can pass in any single HTML element. For example using [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector):
+
+```js
+Actuate('tada')(document.querySelector('.class'))
+Actuate('tada')(document.querySelector('#id'))
+Actuate('tada')(document.querySelector('input[type=text]'))
+```
 
 ### Sequential Animations
 
