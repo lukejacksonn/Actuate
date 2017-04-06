@@ -55,7 +55,7 @@ To animate an HTML element, first pass the `Actuate` function the name of the CS
 Actuate('tada')(document.body)
 ```
 
-Once the function has received both arguments, the animation will initiate. You can pass in any single HTML element. For example using [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector):
+Once the function has received both arguments, the animation will initiate. You can pass in any single HTML element as the `target` element. For example using the native [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) method:
 
 ```js
 Actuate('tada')(document.querySelector('.class'))
