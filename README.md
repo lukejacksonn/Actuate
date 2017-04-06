@@ -81,7 +81,7 @@ When one animation finishes the next one will start until there are no more to a
 
 ### Animation End
 
-The actuate function returns a promise which means you can easily declare a `then` function which is guaranteed to execute once all the animations in a sequence have been applied.
+The Actuate function returns a promise which means you can easily declare a `then` function which is guaranteed to execute once all the animations in a sequence have been applied.
 
 ```js
 Actuate('tada fadeOut')(document.body)
@@ -92,7 +92,7 @@ The `then` function gets passed the `target` element. In the above case `$ === d
 
 ### Already Animating
 
-The only time the actuate with throw an _error_ is if you try animate an element that is already animating:
+The only time Actuate will throw an _error_ is if you try animate an element that is already animating:
 
 ```js
 addEventListener('click', () =>
@@ -104,7 +104,7 @@ addEventListener('click', () =>
 
 ### Chaining sequences
 
-The actuate function takes advantage of [partial appliction](https://en.wikipedia.org/wiki/Partial_application) which means that animation sequences can be defined without having to immediately specify a `target` element.
+The Actuate function takes advantage of [partial appliction](https://en.wikipedia.org/wiki/Partial_application) which means that animation sequences can be defined without having to immediately specify a `target` element.
 
 ```js
 var intro = Actuate('rollIn')
