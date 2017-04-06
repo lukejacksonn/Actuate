@@ -2,9 +2,9 @@
 
 > ac·tu·ate /ˈak(t)SHəˌwāt/ : cause (a machine or device) to operate.
 
-A shiny new (~500b) vanilla implementation of what was previously [A tiny jQuery wrapper for animate.css](https://github.com/lukejacksonn/jquery-actuate) which allows for _one line easy_ actuation of CSS animation sequences with _thenable_ chaining.
+A shiny new (~500b) vanilla implementation of what was previously [A tiny jQuery wrapper for animate.css](https://github.com/lukejacksonn/Actuate/releases/tag/v1.0.0) which allows for _one line easy_ actuation of CSS animation sequences with _thenable_ chaining.
 
-Check out the [codepen examples](http://codepen.io/lukejacksonn/pen/dvaPPG).
+Check out this [example on CodePen](http://codepen.io/lukejacksonn/pen/dvaPPG).
 
 ![Actuate Banner](https://cloud.githubusercontent.com/assets/1457604/24648564/34adf08c-194e-11e7-9c12-dd97d85363b8.gif)
 
